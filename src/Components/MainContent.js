@@ -4,6 +4,7 @@ import shortid from 'shortid';
 import PokeList from './PokeList';
 import Nav from './Nav'
 import InfoCard from './InfoCard'
+import SearchBar from './SearchBar';
 
 
 class MainContent extends Component {
@@ -60,13 +61,35 @@ class MainContent extends Component {
             .catch(error => console.log(error))
     }
 
+    searchPoke = (name) => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`)
+            .then(response => {
+                console.log(response.data)
+                this.setState({
+                    pokemonDetails: {
+                        name: response.data.name,
+                        abilities: response.data.abilities,
+                        stats: response.data.stats,
+                        img: response.data.sprites.front_default
+                    }
+                })
+
+            })
+            .catch(error => console.log(error))
+    }
+
+
+
+
     render() {
 
 
 
         return (
             <>
+                <SearchBar searchPoke={this.searchPoke} />
                 <div id="main-content">
+
                     {this.state.pokemonDetails
 
                         ? <InfoCard
