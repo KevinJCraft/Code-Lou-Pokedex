@@ -11,17 +11,17 @@ const SearchBar = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        props.searchPoke(inputText)
-        setInputText('')
     }
 
     return (
+
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
                 placeholder="Search..."
                 onChange={handleChange}
                 value={inputText}
+                autoFocus
             ></input>
         </form>
     )

@@ -1,22 +1,28 @@
 import React from 'react';
-import shortid from 'shortid';
+import { Link } from 'react-router-dom'
+import Nav from './Nav'
 
 
-const PokeList = ({ pokeList, displayInfoCard }) => {
+const PokeList = (props) => {
 
     return (
-        <ul className="poke-list">
-            {pokeList.map(poke => (
-                <li
-                    className="poke-card"
-                    onClick={() => displayInfoCard(poke.url)}
-                    key={shortid.generate()}
-                >
-                    <h3>{poke.name}</h3>
-                </li>
+        <>
+            <ul className="poke-list">
+                {props.pokeList.map(poke => (
+                    <Link to={`/pokemon/${poke.name}`} key={poke.name}>
+                        <li className="poke-card" to={`/${poke.name}`}>
+                            <h3>{poke.name}</h3>
+                        </li>
+                    </Link>
 
-            ))}
-        </ul>
+                ))}
+            </ul>
+            <Nav
+                handleNextPage={props.handleNextPage}
+                handlePreviousPage={props.handlePreviousPage}
+
+            />
+        </>
 
     )
 
