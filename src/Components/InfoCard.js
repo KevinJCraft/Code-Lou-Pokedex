@@ -2,18 +2,22 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import shortid from 'shortid'
 import { Link } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 
-const InfoCard = (props) => {
+const InfoCard = () => {
 
     const [pokemon, setPokemon] = useState({ name: "", abilities: [], stats: [], sprites: { front_default: "" } })
 
+    const { id } = useParams()
+
     useEffect(() => {
         fetchPokemon()
-    }, [])
+        console.log('now')
+    }, [id])
 
     const fetchPokemon = () => {
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${props.match.params.id}/`)
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
             .then(response => {
                 setPokemon(response.data)
             })

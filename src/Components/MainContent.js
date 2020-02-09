@@ -38,6 +38,8 @@ class MainContent extends Component {
             <>
                 <div id="main-content">
                     <Router>
+                        <SearchBar />
+
                         <Switch>
                             <Route
                                 path='/' exact
