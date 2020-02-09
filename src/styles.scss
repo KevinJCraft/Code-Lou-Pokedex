@@ -46,8 +46,21 @@ body {
   font-size: 30px;
   border-radius: 20px;
   border: none;
+  outline: none;
   
 }
+
+.error-message-slide-down
+.error-message-slide-up {
+  max-height: 0px;
+  overflow-y: hidden;
+  transition: max-height 2s ease-in-out;
+}
+
+.error-message-slide-down {
+  max-height: 40px;
+  color: red;
+} 
 
 h1 {
   text-shadow: 2px 2px 2px #000;
@@ -134,6 +147,9 @@ h1 {
     padding: 1rem;
     width: 80%;
     margin: auto;
+    transform: scale(1.05);
+    box-shadow: 2px 2px 10px black;
+    margin-top: 20px;
   }
 
   .btn.close {

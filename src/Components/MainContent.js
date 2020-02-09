@@ -5,6 +5,7 @@ import PokeList from './PokeList';
 import InfoCard from './InfoCard'
 import SearchBar from './SearchBar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import NotFound from './NotFound';
 
 
 class MainContent extends Component {
@@ -49,7 +50,8 @@ class MainContent extends Component {
                                     handlePreviousPage={() => this.getPokeList(this.state.prevPage)}
                                 />}
                             />
-                            <Route path='/pokemon/:id' component={InfoCard} />
+                            <Route path='/pokemon/:pokemon' component={InfoCard} />
+                            <Route path='/error/:message' component={NotFound} />
                         </Switch>
                     </Router>
                 </div>

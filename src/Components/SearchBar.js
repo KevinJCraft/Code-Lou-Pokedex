@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router'
+import axios from 'axios'
 
 const SearchBar = () => {
 
     const [inputText, setInputText] = useState('')
+    const [error, setError] = useState({ class: 'error-message-slide-up', message: '' })
     const history = useHistory()
 
     const handleChange = (event) => {
-        let inputText = event.target.value
-        setInputText(inputText)
+        if (event.target.value.length <= 20) {
+            let inputText = event.target.value
+            setInputText(inputText)
+        }
     }
 
     function handleSubmit(event) {
         event.preventDefault()
-        history.push(`/pokemon/${inputText}`)
+        inputText && fetchPokemon()
         setInputText("")
+    }
+
+    const fetchPokemon = () => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${inputText}/`)
+            .then(response => {
+                history.push(`/pokemon/${response.data.name}`, response.data)
+            })
+            .catch(err => {
+                setError({ class: 'error-message-slide-down', message: "Pokemon not found" })
+                setTimeout(() => setError({ class: 'error-message-slide-up', message: '' }), 3000)
+            })
+
     }
 
     return (
@@ -28,6 +44,7 @@ const SearchBar = () => {
                 value={inputText}
                 autoFocus
             ></input>
+            <div className={error.class} >{error.message}</div>
         </form >
     )
 }

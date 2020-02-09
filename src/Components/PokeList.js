@@ -1,19 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import Nav from './Nav'
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 
 const PokeList = (props) => {
+
+    const history = useHistory()
+    const handleClick = (name) => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`)
+            .then(response => {
+                history.push(`/pokemon/${response.data.name}`, response.data)
+            })
+            .catch(error => history.push(`/error/${error.message}`)
+            )
+    }
+
 
     return (
         <>
             <ul className="poke-list">
                 {props.pokeList.map(poke => (
-                    <Link to={`/pokemon/${poke.name}`} key={poke.name}>
-                        <li className="poke-card" to={`/${poke.name}`}>
-                            <h3>{poke.name}</h3>
-                        </li>
-                    </Link>
+
+                    <li className="poke-card" onClick={() => handleClick(poke.name)} key={poke.name}>
+                        <h3>{poke.name}</h3>
+                    </li>
+
 
                 ))}
             </ul>
