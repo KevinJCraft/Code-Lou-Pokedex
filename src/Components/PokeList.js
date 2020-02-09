@@ -16,28 +16,21 @@ const PokeList = (props) => {
             )
     }
 
-
     return (
         <>
             <ul className="poke-list">
                 {props.pokeList.map(poke => (
-
                     <li className="poke-card" onClick={() => handleClick(poke.name)} key={poke.name}>
                         <h3>{poke.name}</h3>
                     </li>
-
-
                 ))}
             </ul>
             <Nav
                 handleNextPage={props.handleNextPage}
                 handlePreviousPage={props.handlePreviousPage}
-
             />
         </>
-
     )
-
 }
 
 export default PokeList;

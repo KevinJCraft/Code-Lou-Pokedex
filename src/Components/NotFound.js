@@ -7,16 +7,11 @@ const NotFound = () => {
     const { message } = useParams()
     const history = useHistory()
 
-    const handleClick = () => {
-        history.goBack()
-    }
-
-
     return (
         <div className="poke-card info">
             {message}
             <br></br>
-            <button className="btn close" onClick={handleClick}>BACK</button>
+            <button className="btn close" onClick={() => history.goBack()}>BACK</button>
 
         </div>
     )
