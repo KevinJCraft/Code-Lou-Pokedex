@@ -1,18 +1,23 @@
-import React from 'react';
-import Header from './Components/Header';
-import MainContent from './Components/MainContent';
+import React, { useState } from "react";
+import Header from "./Components/Header";
+import MainContent from "./Components/MainContent";
+import LoadingOverlay from "react-loading-overlay";
 
-class App extends React.Component {
+const App = () => {
+	const [isActive, setIsActive] = useState(false);
 
+	const handleTogglLoading = bool => {
+		setIsActive(bool);
+	};
 
-    render() {
-        return (
-            <div className="App" >
-                <Header />
-                <MainContent />
-            </div>
-        );
-    }
-}
+	return (
+		<LoadingOverlay active={isActive} spinner text="Gotta catch'em all!">
+			<div className="App">
+				<Header />
+				<MainContent toggleLoading={handleTogglLoading} />
+			</div>
+		</LoadingOverlay>
+	);
+};
 
-export default App
+export default App;

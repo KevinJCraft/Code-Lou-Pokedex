@@ -1,227 +1,254 @@
 html {
-  height: 100%;
-  box-sizing: border-box;
+	height: 100%;
+	box-sizing: border-box;
+	margin: 0;
 }
 
 body {
-  background: url("https://raw.githubusercontent.com/CodeLouisville/FSJS-Weekly-Challenges/master/Challenges/Week5/images/grass.png") bottom center no-repeat, rgb(173,216,230);
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: top;
-  color: white;
-  font-family: sans-serif;
+	background: url("https://raw.githubusercontent.com/CodeLouisville/FSJS-Weekly-Challenges/master/Challenges/Week5/images/grass.png")
+			bottom center no-repeat,
+		rgb(173, 216, 230);
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: top;
+	color: white;
+	font-family: sans-serif;
 }
 
 #pikachu {
-  position: fixed;
-  top: 1em;
-  right: 1em;
-  width: 25%;
-  z-index: -1;
+	position: fixed;
+	top: 1em;
+	right: 1em;
+	width: 25%;
+	z-index: -1;
 }
 
+._loading_overlay_wrapper {
+	height: 100vh;
+	width: 100vw;
+}
 
 .header {
-  text-align: left;
-  @media( max-width: 700px ) {
-    margin-top: 3em;
-  }
+	text-align: left;
+	@media (max-width: 700px) {
+		margin-top: 3em;
+	}
 }
 
 #main-content {
-  text-align: center; 
-  width: 80%;  
-  margin-bottom: 1em;
-  @media( max-width: 700px ) {
-    width: 100%;
-    margin-top: 3em;
-  }
+	text-align: center;
+	width: 80%;
+	margin-bottom: 1em;
+	@media (max-width: 700px) {
+		width: 100%;
+		margin-top: 3em;
+	}
+}
+
+.inputForm {
+	position: relative;
+	width: 40%;
+	margin: auto;
+	text-align: center;
 }
 
 .search-bar {
-  padding: 10px;
-  padding-left: 30px;
-  margin-bottom: 20px;
-  width: 40%;
-  font-size: 30px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  
+	padding: 0.5em;
+	margin-bottom: 20px;
+	width: 100%;
+	font-size: 1em;
+	border-radius: 20px;
+	border: none;
+	outline: none;
+	position: relative;
+	text-align: center;
 }
 
-.error-message-slide-down
-.error-message-slide-up {
-  max-height: 0px;
-  overflow-y: hidden;
-  transition: max-height 2s ease-in-out;
+.autoComplete {
+	background-color: rgb(248, 246, 246);
+	color: black;
+	list-style: none;
+	width: 100%;
+	margin: auto;
+	position: absolute;
+	z-index: 1;
+	padding: 0;
+
+	.suggestion {
+		padding: 0.5em;
+		width: 100%;
+
+		&:hover {
+			background: blue;
+			color: white;
+		}
+	}
 }
 
-.error-message-slide-down {
-  max-height: 40px;
-  color: red;
-} 
+.error {
+	color: red;
+	max-height: 0px;
+	overflow-y: hidden;
+	transition: max-height 1s ease-in-out;
+	&.show {
+		max-height: 40px;
+	}
+}
 
 h1 {
-  text-shadow: 2px 2px 2px #000;
-  display: inline-block;
-  font-size: 3em;
-  line-height: 1.3em;
-  margin:0;
-  margin-left: 10px;
-  vertical-align: top;
+	text-shadow: 2px 2px 2px #000;
+	display: inline-block;
+	font-size: 2.5em;
+	line-height: 1.3em;
+	margin: 0;
+	vertical-align: top;
 }
 
-.poke-list ul {
-  margin: 0;
-  padding: 0;
-  width: 100%;
+.poke-list {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
-
-.poke-list li {
-  list-style: none;
-  width: 20%;
-  margin: 5px 1%;
-  padding: 1em;
-  display: inline-block;
-  cursor: pointer;
-  
-}
-
-
-
-.header-logo {
-  display: inline-block;
-  height: 4em;
-  vertical-align: top;
-}
-
 
 .poke-card {
-  background: white;
-  color: black;
-  border-radius: 5px;
-  margin-top: 1em;
-  transition: all .2s ease-in-out;
-  overflow: hidden;
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 2px 2px 10px black;
-  }
-
-  .details{
-    display: flex;
-    justify-content: space-around;
-    @media( max-width: 950px) {
-      flex-direction: column;
-      
-    }
-  }
-
-  .img {
-    display: block;
-  }
-
-  .columns{
-    width: 33%;
-    @media( max-width:950px) {
-      margin: auto;
-      width: 50%;
-    }
-
-    @media( max-width: 700px) {
-      width: 80%;
-    }
-  }
-
-  .columns li {
-    display: block;
-    list-style: none;
-    text-align: left;
-    padding-left: 30px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &.info {
-    padding: 1rem;
-    width: 80%;
-    margin: auto;
-    transform: scale(1.05);
-    box-shadow: 2px 2px 10px black;
-    margin-top: 20px;
-  }
-
-  .btn.close {
-    padding: 0.5rem;
-    font-size: 1rem;
-    min-width: 100px;
-  }
-
-  @media( max-width: 700px ) {
-    width: 40%;
-  }
-
-  @media( max-width: 450px ) {
-    width: 90%;
-  }
+	width: 45%;
+	list-style: none;
+	margin-bottom: 1em;
+	cursor: pointer;
+	background: white;
+	color: black;
+	border-radius: 5px;
+	transition: all 0.2s ease-in-out;
+	overflow: hidden;
+	&:hover {
+		transform: scale(1.05);
+		box-shadow: 2px 2px 10px black;
+	}
 }
 
+.infoCard {
+	background: white;
+	color: black;
+	border-radius: 5px;
+	list-style: none;
+	margin-top: 1em;
+	transition: all 0.2s ease-in-out;
+	overflow: hidden;
+	padding: 1rem;
+	width: 80%;
+	margin: auto;
+	transform: scale(1.05);
+	box-shadow: 2px 2px 10px black;
+	margin-top: 20px;
+	animation-name: infoCard;
+	animation-duration: 0.25s;
+	animation-delay: 0s;
+	animation-timing-function: ease-out, ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-direction: normal;
+	.img {
+		display: block;
+	}
+
+	.columns {
+		width: 80%;
+		margin: auto;
+		text-align: center;
+	}
+
+	.columns ul {
+		margin: 0;
+		padding: 0;
+	}
+
+	.columns li {
+		display: block;
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.btn.close {
+		padding: 0.5rem;
+		font-size: 1rem;
+		min-width: 100px;
+	}
+}
+
+.header-logo {
+	display: inline-block;
+	height: 4em;
+	vertical-align: top;
+}
 
 .btn {
-  color: white;
-  background-color: #C62828;
-  border: none;
-  padding: 1em;
-  border-radius: 5px;
-  display: inline-block;
-  margin: 0 auto;
-  margin-top: 1em;
-  font-size: 1.2em;
-  cursor: pointer;
-  transition: all .2s ease-in-out;
-  min-width: 150px;   
-  &:hover {
-    transform: scale(1.05);
-  }
+	color: white;
+	background-color: #c62828;
+	border: none;
+	padding: 1em;
+	border-radius: 5px;
+	display: inline-block;
+	margin: 0 auto;
+	margin-top: 1em;
+	font-size: 1.2em;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	min-width: 150px;
+	&:hover {
+		transform: scale(1.05);
+	}
 }
 
 #previous {
-  margin-right: 1rem;
+	margin-right: 1rem;
 }
 
 /* Hang */
 @keyframes hvr-hang {
-  0% {
-    transform: translateY(8px);
-  }
+	0% {
+		transform: translateY(8px);
+	}
 
-  50% {
-    transform: translateY(0px);
-  }
+	50% {
+		transform: translateY(0px);
+	}
 
-  100% {
-    transform: translateY(8px);
-  }
+	100% {
+		transform: translateY(8px);
+	}
 }
 
 @keyframes hvr-hang-sink {
-  100% {
-    transform: translateY(8px);
-  }
+	100% {
+		transform: translateY(8px);
+	}
 }
 
 .hvr-hang {
-  display: inline-block;
-  vertical-align: middle;
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  backface-visibility: hidden;
-  animation-name: hvr-hang-sink, hvr-hang;
-  animation-duration: 1s, 2s;
-  animation-delay: 0s, .3s;
-  animation-timing-function: ease-out, ease-in-out;
-  animation-iteration-count: 1, infinite;
-  animation-fill-mode: forwards;
-  animation-direction: normal, alternate;
+	display: inline-block;
+	vertical-align: middle;
+	transform: translateZ(0);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	backface-visibility: hidden;
+	animation-name: hvr-hang-sink, hvr-hang;
+	animation-duration: 1s, 2s;
+	animation-delay: 0s, 0.3s;
+	animation-timing-function: ease-out, ease-in-out;
+	animation-iteration-count: 1, infinite;
+	animation-fill-mode: forwards;
+	animation-direction: normal, alternate;
+}
+
+@keyframes infoCard {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
 }

@@ -1,68 +1,74 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import shortid from 'shortid';
-import PokeList from './PokeList';
-import InfoCard from './InfoCard'
-import SearchBar from './SearchBar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import NotFound from './NotFound';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import axios from "axios";
+import shortid from "shortid";
 
-class MainContent extends Component {
+import PokeList from "./PokeList";
+import InfoCard from "./InfoCard";
+import SearchBar from "./SearchBar";
+import NotFound from "./NotFound";
 
-    state = {
-        pokeList: []
-    }
+const MainContent = props => {
+	const [pokeList, setPokeList] = useState([]);
+	const [nextPage, setNextPage] = useState("");
+	const [prevPage, setPrevPage] = useState("");
 
-    componentDidMount() {
-        this.getPokeList(`https://pokeapi.co/api/v2/pokemon/?limit=12&offset=0`);
-    }
+	const getPokeList = url => {
+		axios
+			.get(url)
+			.then(response => {
+				setPokeList(
+					response.data.results.map(pokemon => ({
+						name: pokemon.name,
+						url: pokemon.url,
+						key: shortid.generate()
+					}))
+				);
+				setNextPage(response.data.next);
+				setPrevPage(response.data.previous);
+			})
+			.catch(error => console.log(error));
+	};
 
-    getPokeList(url) {
-        axios.get(url)
-            .then(response => {
-                this.setState({
-                    pokeList: response.data.results.map(pokemon => ({
-                        name: pokemon.name,
-                        url: pokemon.url,
-                        key: shortid.generate()
-                    })),
-                    nextPage: response.data.next,
-                    prevPage: response.data.previous
-                })
-            })
-            .catch(error => console.log(error))
-    }
+	useEffect(() => {
+		getPokeList(`https://pokeapi.co/api/v2/pokemon/?limit=12&offset=0`);
+	}, []);
 
-    render() {
-        return (
-            <>
-                <div id="main-content">
-                    <Router>
-                        <SearchBar />
-                        <Switch>
-                            <Route
-                                path='/' exact
-                                render={(props) => <PokeList {...props}
-                                    pokeList={this.state.pokeList}
-                                    handleNextPage={() => this.getPokeList(this.state.nextPage)}
-                                    handlePreviousPage={() => this.getPokeList(this.state.prevPage)}
-                                />}
-                            />
-                            <Route path='/pokemon/:pokemon' component={InfoCard} />
-                            <Route path='/error/:message' component={NotFound} />
-                        </Switch>
-                    </Router>
-                </div>
-                <img
-                    id="pikachu"
-                    className="hvr-hang"
-                    src="https://raw.githubusercontent.com/CodeLouisville/FSJS-Weekly-Challenges/master/Challenges/Week5/images/pikachu.png"
-                    alt="Pikachu"
-                />
-            </>
-        )
-    }
-}
+	return (
+		<>
+			<div id="main-content">
+				<Router>
+					<SearchBar />
+					<Switch>
+						<Route
+							path="/"
+							exact
+							render={props => (
+								<PokeList
+									{...props}
+									pokeList={pokeList}
+									handleNextPage={() => getPokeList(nextPage)}
+									handlePreviousPage={() => getPokeList(prevPage)}
+								/>
+							)}
+						/>
+						<Route
+							path="/pokemon/:pokemon"
+							render={() => <InfoCard toggleLoading={props.toggleLoading} />}
+						/>
+						<Route path="/error/:message" component={NotFound} />
+					</Switch>
+				</Router>
+			</div>
+			<img
+				id="pikachu"
+				className="hvr-hang"
+				src="https://raw.githubusercontent.com/CodeLouisville/FSJS-Weekly-Challenges/master/Challenges/Week5/images/pikachu.png"
+				alt="Pikachu"
+			/>
+		</>
+	);
+};
 
 export default MainContent;
