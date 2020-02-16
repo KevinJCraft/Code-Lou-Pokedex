@@ -1,11 +1,18 @@
-import axios from 'axios'
+import axios from "axios";
+import { useState } from "react";
+import { useHistory } from "react-router";
 
-const useFetchThenRender = (url, path) => {
-    return axios.get(url)
-        .then(response => {
-            history.push(path, response.data)
-        })
-        .catch(error => error)
-}
+const useFetch = url => {
+	const [value, setValue] = useState();
+	const history = useHistory();
+	axios
+		.get(url)
+		.then(response => {
+			setValue(response);
+		})
+		.catch(error => history.push(`/error/${error.message}`));
 
-export default useFetchThenRender
+	return value;
+};
+
+export default useFetch;

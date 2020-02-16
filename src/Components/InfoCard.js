@@ -3,10 +3,12 @@ import shortid from "shortid";
 import { Link, useHistory, useParams } from "react-router-dom";
 import useOutsideClick from "../Hooks/useOutsideClick";
 import axios from "axios";
+import LoadingOverlay from "react-loading-overlay";
 
-const InfoCard = ({ toggleLoading }) => {
+const InfoCard = () => {
 	const { pokemon } = useParams();
 	const [pokemonStats, setPokemonStats] = useState();
+	const [loading, setLoading] = useState(true);
 	const history = useHistory();
 	const infoCardRef = useRef();
 	useOutsideClick(infoCardRef);
@@ -14,7 +16,7 @@ const InfoCard = ({ toggleLoading }) => {
 	setTimeout(() => {
 		let scroll = require("scroll-to-element");
 		scroll(".infoCard", {
-			offset: 0,
+			offset: -10,
 			ease: "linear",
 			duration: 250
 		});
@@ -25,17 +27,15 @@ const InfoCard = ({ toggleLoading }) => {
 			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
 			.then(response => {
 				setPokemonStats(response.data);
+				setLoading(false);
 			})
 			.catch(error => history.push(`/error/${error.message}`));
 	};
 
 	useEffect(() => {
-		toggleLoading(false);
-	}, [pokemonStats]);
-
-	useEffect(() => {
-		toggleLoading(true);
 		fetchPokemon();
+
+		return () => setLoading(false);
 	}, []);
 
 	return pokemonStats ? (
@@ -74,7 +74,9 @@ const InfoCard = ({ toggleLoading }) => {
 				<button className="btn close">close</button>
 			</Link>
 		</div>
-	) : null;
+	) : (
+		<LoadingOverlay active={loading} spinner text="Gotta catch'em all!" />
+	);
 };
 
 export default InfoCard;

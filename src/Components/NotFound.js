@@ -1,20 +1,19 @@
-import React from 'react';
-import { useParams, useHistory } from 'react-router'
-
+import React from "react";
+import { useParams, useHistory } from "react-router";
 
 const NotFound = () => {
+	const { message } = useParams();
+	const history = useHistory();
 
-    const { message } = useParams()
-    const history = useHistory()
-
-    return (
-        <div className="poke-card info">
-            {message}
-            <br></br>
-            <button className="btn close" onClick={() => history.goBack()}>BACK</button>
-
-        </div>
-    )
-}
+	return (
+		<div className="info-card">
+			{message}
+			<br></br>
+			<button className="btn close" onClick={() => history.push("/")}>
+				BACK
+			</button>
+		</div>
+	);
+};
 
 export default NotFound;

@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import axios from "axios";
 import shortid from "shortid";
 
 import PokeList from "./PokeList";
 import InfoCard from "./InfoCard";
-import SearchBar from "./SearchBar";
 import NotFound from "./NotFound";
+import SearchBarUI from "./SearchBarUI";
 
 const MainContent = props => {
 	const [pokeList, setPokeList] = useState([]);
 	const [nextPage, setNextPage] = useState("");
 	const [prevPage, setPrevPage] = useState("");
-
 	const getPokeList = url => {
 		axios
 			.get(url)
@@ -39,7 +37,7 @@ const MainContent = props => {
 		<>
 			<div id="main-content">
 				<Router>
-					<SearchBar />
+					<SearchBarUI />
 					<Switch>
 						<Route
 							path="/"
@@ -53,10 +51,7 @@ const MainContent = props => {
 								/>
 							)}
 						/>
-						<Route
-							path="/pokemon/:pokemon"
-							render={() => <InfoCard toggleLoading={props.toggleLoading} />}
-						/>
+						<Route path="/pokemon/:pokemon" render={() => <InfoCard />} />
 						<Route path="/error/:message" component={NotFound} />
 					</Switch>
 				</Router>
