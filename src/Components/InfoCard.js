@@ -22,21 +22,23 @@ const InfoCard = () => {
 		});
 	}, 500);
 
-	const fetchPokemon = () => {
-		axios
-			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
-			.then(response => {
-				setPokemonStats(response.data);
-				setLoading(false);
-			})
-			.catch(error => history.push(`/error/${error.message}`));
-	};
+	const fetchPokemon = React.useCallback(
+		() => {
+			axios
+				.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
+				.then(response => {
+					setPokemonStats(response.data);
+					setLoading(false);
+				})
+				.catch(error => history.push(`/error/${error.message}`));
+			},[history, pokemon]
+	) 
 
 	useEffect(() => {
 		fetchPokemon();
 
 		return () => setLoading(false);
-	}, []);
+	}, [fetchPokemon]);
 
 	return pokemonStats ? (
 		<div className="infoCard" ref={infoCardRef}>

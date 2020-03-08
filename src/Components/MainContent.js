@@ -13,6 +13,7 @@ const MainContent = props => {
 	const [nextPage, setNextPage] = useState("");
 	const [prevPage, setPrevPage] = useState("");
 	const getPokeList = url => {
+		if(!url) return
 		axios
 			.get(url)
 			.then(response => {
