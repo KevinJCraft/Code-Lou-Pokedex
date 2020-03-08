@@ -10,7 +10,10 @@ const SearchBarUI = () => {
 
 	return (
 		<form
-			onSubmit={() => history.push(`/pokemon/${name}`)}
+			onSubmit={event => {
+				event.preventDefault();
+				history.push(`/pokemon/${name}`);
+			}}
 			className="searchForm"
 		>
 			<Autocomplete
