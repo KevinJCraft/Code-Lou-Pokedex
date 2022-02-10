@@ -11,7 +11,7 @@
     "downshift": "^5.0.0",
     "match-sorter": "^4.0.2",
     "material-ui": "^0.20.2",
-    "node-sass": "4.13.1",
+    "node-sass": "7.0.0",
     "pokeapi-js-wrapper": "1.1.2",
     "react": "16.12.0",
     "react-dom": "16.12.0",
